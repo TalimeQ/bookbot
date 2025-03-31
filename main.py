@@ -1,3 +1,5 @@
+import sys
+
 from stats import get_num_words
 from stats import get_num_letters
 from stats import get_sorted_letters
@@ -13,14 +15,20 @@ def print_sorted_letters(sorted_letters):
             print(f"{dict["character"]}: {dict["num"]}")        
 
 def main():
-    data_to_parse = get_book_text("books/frankenstein.txt")
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    book_path = sys.argv[1]
+
+    data_to_parse = get_book_text(book_path)
     num_words = get_num_words(data_to_parse)
  
     num_letters = get_num_letters(data_to_parse)
     sorted_letters = get_sorted_letters(num_letters)
 
     print("============ BOOKBOT ============")
-    print("Analyzing book found at books/frankenstein.txt...")
+    print(f"Analyzing book found at {book_path}")
     print("----------- Word Count ----------")
     print(f"Found {num_words} total words")
     print("--------- Character Count -------")
